@@ -1,5 +1,7 @@
+import TweetsList from "./components/TweetsList/TweetsList";
+
 function App() {
-   return <div className="App">Hello</div>;
+   return <TweetsList />;
 }
 
 export default App;
