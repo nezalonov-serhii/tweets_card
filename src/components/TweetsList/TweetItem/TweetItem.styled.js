@@ -13,7 +13,7 @@ export const TweetCard = styled.article`
 
    padding-bottom: 36px;
 
-   max-width: 380px;
+   width: 380px;
    min-height: 460px;
 
    box-shadow: -2.5777px 6.87386px 20.6216px rgba(0, 0, 0, 0.23);
@@ -114,7 +114,8 @@ export const FollowersText = styled.p`
 export const FollowButton = styled.button`
    padding: 14px 56px;
 
-   background: #ebd8ff;
+   background-color: ${({ follow }) => (follow ? "#5CD3A8" : "#ebd8ff")};
+
    box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
    border: none;
    border-radius: 10.3108px;
@@ -124,4 +125,12 @@ export const FollowButton = styled.button`
    line-height: 1.2;
    color: #373737;
    text-transform: uppercase;
+
+   transition: background-color 200ms linear;
+
+   &:hover {
+      background-color: #33ffb5;
+   }
 `;
+
+// #ebd8ff
