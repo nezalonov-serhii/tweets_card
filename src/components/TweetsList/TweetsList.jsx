@@ -14,6 +14,7 @@ import {
 } from "redux/thunk/contactsThunk";
 import { incrementPage } from "redux/Slice/contactsSlice";
 import Loader from "components/Loader/Loader";
+import { SkeletonTweets } from "components/Skeleton/SkeletonTweets";
 
 const TweetsList = () => {
    const usersTweets = useSelector(selectUsersTweets);
@@ -34,19 +35,20 @@ const TweetsList = () => {
 
    return (
       <>
-         {usersTweets.length !== 0 && (
-            <TweetSection>
-               <TweetContainer>
-                  <TweetItem />
-               </TweetContainer>
-               {totalPage !== page && (
-                  <LoadMore onClick={handelPage} disabled={IsLoading}>
-                     {!IsLoading && <>Load More</>}
-                     {IsLoading && <Loader />}
-                  </LoadMore>
+         <TweetSection>
+            <TweetContainer>
+               {usersTweets.length !== 0 && <TweetItem />}
+               {IsLoading && usersTweets.length === 0 && (
+                  <SkeletonTweets quantity={3} />
                )}
-            </TweetSection>
-         )}
+            </TweetContainer>
+            {totalPage !== page && usersTweets.length !== 0 && (
+               <LoadMore onClick={handelPage} disabled={IsLoading}>
+                  {!IsLoading && <>Load More</>}
+                  {IsLoading && <Loader />}
+               </LoadMore>
+            )}
+         </TweetSection>
       </>
    );
 };

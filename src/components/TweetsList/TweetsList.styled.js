@@ -5,12 +5,27 @@ export const TweetSection = styled.section`
 `;
 
 export const TweetContainer = styled.div`
-   width: 1280px;
    margin: 0 auto;
 
    display: flex;
-   gap: calc((1280px - (380px * 3)) / 2);
    flex-wrap: wrap;
+
+   width: 480px;
+   gap: calc((780px - 380px * 2) / 0.5);
+
+   @media screen and (max-width: 779px) {
+      justify-content: center;
+   }
+
+   @media screen and (min-width: 780px) {
+      width: 780px;
+      gap: calc((780px - (380px * 2)));
+   }
+
+   @media screen and (min-width: 1280px) {
+      width: 1280px;
+      gap: calc((1280px - (380px * 3)) / 2);
+   }
 `;
 
 export const LoadMore = styled.button`

@@ -113,6 +113,7 @@ export const FollowersText = styled.p`
 
 export const FollowButton = styled.button`
    width: 196px;
+   min-height: 50px;
    padding: 14px 0;
 
    background-color: ${({ follow }) => (follow ? "#5CD3A8" : "#ebd8ff")};
