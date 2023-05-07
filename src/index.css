@@ -1,12 +1,14 @@
 @import-normalize;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
 
 body {
   box-sizing: border-box;
 }
 
 body {
-  font-family: sans-serif;
   line-height: 1.5;
+
+  font-family: 'Montserrat', sans-serif;
 }
 
 h1,
@@ -33,4 +35,9 @@ img {
 
 button {
   cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }

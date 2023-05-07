@@ -1,7 +1,13 @@
-import TweetsList from "./components/TweetsList/TweetsList";
+import AppBar from "components/AppBar/AppBar";
+import TweetsPage from "Page/TweetsPage";
 
 function App() {
-   return <TweetsList />;
+   return (
+      <>
+         <AppBar />
+         <TweetsPage />
+      </>
+   );
 }
 
 export default App;

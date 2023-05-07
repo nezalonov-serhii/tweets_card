@@ -131,7 +131,7 @@ export const FollowButton = styled.button`
    transition: background-color 200ms linear;
 
    &:hover {
-      background-color: #33ffb5;
+      background-color: ${({ follow }) => (follow ? "#f39595" : "#33ffb5")};
    }
 
    &:disabled {

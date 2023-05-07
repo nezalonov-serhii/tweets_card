@@ -6,6 +6,7 @@ export const TweetSection = styled.section`
 
 export const TweetContainer = styled.div`
    margin: 0 auto;
+   padding: 0 10px;
 
    display: flex;
    flex-wrap: wrap;

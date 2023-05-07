@@ -3,6 +3,7 @@ import TweetItem from "./TweetItem/TweetItem";
 import { LoadMore, TweetContainer, TweetSection } from "./TweetsList.styled";
 import { useDispatch, useSelector } from "react-redux";
 import {
+   selectFilter,
    selectIsLoading,
    selectPage,
    selectTotalPage,
@@ -20,14 +21,15 @@ const TweetsList = () => {
    const usersTweets = useSelector(selectUsersTweets);
    const IsLoading = useSelector(selectIsLoading);
    const totalPage = useSelector(selectTotalPage);
+   const filter = useSelector(selectFilter);
    const page = useSelector(selectPage);
 
    const dispatch = useDispatch();
 
    useEffect(() => {
-      dispatch(getAllPageTweetsThunk());
-      dispatch(getPageUsersTwitsThunk(page));
-   }, [dispatch, page]);
+      dispatch(getAllPageTweetsThunk(filter));
+      dispatch(getPageUsersTwitsThunk({ page, filter }));
+   }, [dispatch, filter, page]);
 
    const handelPage = () => {
       dispatch(incrementPage());

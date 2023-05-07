@@ -7,18 +7,15 @@ import {
 
 export const getAllPageTweetsThunk = createAsyncThunk(
    "tweets/allUsersTweets",
-   async () => getAllPageTweets()
+   async (filter) => getAllPageTweets(filter)
 );
 
 export const getPageUsersTwitsThunk = createAsyncThunk(
    "tweets/pageUsersTwits",
-   async (page) => getPageUsersTwits(page)
+   async ({ page, filter }) => getPageUsersTwits(page, filter)
 );
 
 export const updateUsersTweetsThunk = createAsyncThunk(
    "tweets/updateUsersTweets",
-   async ({ id, editedUser }, thunkAPI) => {
-      console.log(thunkAPI);
-      return updateUsersTweets(id, editedUser);
-   }
+   async ({ id, editedUser }, thunkAPI) => updateUsersTweets(id, editedUser)
 );

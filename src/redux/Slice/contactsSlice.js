@@ -18,6 +18,7 @@ const handleFulfilled = (state) => {
 const handleRejected = (state, { error }) => {
    state.isLoading = false;
    state.error = error;
+   state.changeFilter = false;
 };
 
 const tweetsSlice = createSlice({
@@ -28,6 +29,16 @@ const tweetsSlice = createSlice({
       incrementPage(state) {
          state.page += 1;
       },
+      resetPage(state) {
+         state.page = 1;
+      },
+
+      filterTweets(state, actions) {
+         state.filter = actions.payload;
+      },
+      changeFilter(state) {
+         state.changeFilter = true;
+      },
    },
 
    extraReducers: (builder) => {
@@ -37,7 +48,12 @@ const tweetsSlice = createSlice({
             state.totalPage = Math.ceil(payload.length / 3);
          })
          .addCase(getPageUsersTwitsThunk.fulfilled, (state, { payload }) => {
-            state.usersTweets = [...state.usersTweets, ...payload];
+            if (state.changeFilter) {
+               state.usersTweets = [...payload];
+            } else {
+               state.usersTweets = [...state.usersTweets, ...payload];
+            }
+            state.changeFilter = false;
          })
          .addCase(updateUsersTweetsThunk.fulfilled, (state, { payload }) => {
             const index = state.usersTweets.findIndex((tweet) => {
@@ -73,5 +89,6 @@ const tweetsSlice = createSlice({
    },
 });
 
-export const { incrementPage } = tweetsSlice.actions;
+export const { incrementPage, filterTweets, changeFilter, resetPage } =
+   tweetsSlice.actions;
 export const tweetsReducer = tweetsSlice.reducer;
