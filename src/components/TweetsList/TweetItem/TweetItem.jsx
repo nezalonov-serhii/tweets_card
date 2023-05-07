@@ -13,11 +13,13 @@ import Sprite from "assets/img/sprite.svg";
 import backgroundCard from "assets/img/background-card.png";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUsersTweetsThunk } from "redux/thunk/contactsThunk";
-import { selectUsersTweets } from "redux/selector/selectors";
+import { selectIsLoading, selectUsersTweets } from "redux/selector/selectors";
+import Loader from "components/Loader/Loader";
 
 const TweetItem = () => {
    const dispatch = useDispatch();
 
+   const IsLoading = useSelector(selectIsLoading);
    const usersTweets = useSelector(selectUsersTweets);
 
    const handelFollow = async (user) => {
@@ -36,6 +38,10 @@ const TweetItem = () => {
       }
    };
 
+   const addDots = (followers) => {
+      return followers.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, "$1.");
+   };
+
    return usersTweets.map((user) => {
       return (
          <TweetCard backgroundCard={backgroundCard} key={user.id}>
@@ -48,17 +54,15 @@ const TweetItem = () => {
             </AvatarWrap>
 
             <TweetText>{user.tweets} tweets</TweetText>
-            <FollowersText>
-               {user.followers
-                  .toString()
-                  .replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, "$1.")}{" "}
-               followers{" "}
-            </FollowersText>
+            <FollowersText>{addDots(user.followers)} followers </FollowersText>
             <FollowButton
                follow={user.follow}
                onClick={() => handelFollow(user)}
+               disabled={IsLoading}
             >
-               follow
+               {!IsLoading && user.follow && <>following</>}
+               {!IsLoading && !user.follow && <>follow</>}
+               {IsLoading && <Loader />}
             </FollowButton>
          </TweetCard>
       );

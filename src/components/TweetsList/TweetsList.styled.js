@@ -38,4 +38,8 @@ export const LoadMore = styled.button`
       background-color: #33ffb5;
       box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
    }
+
+   &:disabled {
+      opacity: 60%;
+   }
 `;
