@@ -5,6 +5,7 @@ export const Header = styled.header`
    padding: 15px 0;
    background-color: #4b2a99;
    color: #ebd8ff;
+   box-shadow: 0px 10px 20px 2px rgba(75, 42, 153, 0.4);
 `;
 
 export const HeaderContainer = styled.div`
@@ -32,8 +33,16 @@ export const HeaderNav = styled.nav`
 `;
 
 export const HeaderNavLink = styled(NavLink)`
+   border-bottom: 2px solid transparent;
+
+   transition: border 300ms linear;
+
    &.active {
       color: #33ffb5;
+   }
+
+   &:hover {
+      border-bottom: 2px solid #33ffb5;
    }
 `;
 

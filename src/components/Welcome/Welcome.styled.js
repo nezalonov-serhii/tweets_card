@@ -11,7 +11,7 @@ export const WelcomeContainer = styled.div`
    margin: 0 auto;
    padding: 10px 25px;
 
-   border: 1px solid black;
+   border: none;
    border-radius: 20px;
 
    width: 380px;
