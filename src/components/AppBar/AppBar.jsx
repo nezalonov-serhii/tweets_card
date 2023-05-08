@@ -1,17 +1,27 @@
+import { useDispatch } from "react-redux";
+
 import {
    changeFilter,
    filterTweets,
-   resetPage,
-} from "redux/Slice/contactsSlice";
-import { Filter, Header, HeaderContainer, HeaderNav } from "./AppBar.styled";
-import { useDispatch } from "react-redux";
+   resetCurrentPage,
+} from "redux/Slice/TweetsSlice";
+
+import {
+   Filter,
+   Header,
+   HeaderContainer,
+   HeaderNav,
+   HeaderNavLink,
+} from "./AppBar.styled";
+import { useLocation } from "react-router-dom";
 
 const AppBar = () => {
    const dispatch = useDispatch();
-   const options = ["All", "Follow", "Following"];
+   const optionsFilter = ["All", "Follow", "Following"];
+   const location = useLocation();
 
    const handlerFilter = (e) => {
-      dispatch(resetPage());
+      dispatch(resetCurrentPage());
       dispatch(changeFilter());
       dispatch(filterTweets(e.target.value));
    };
@@ -20,15 +30,19 @@ const AppBar = () => {
       <Header>
          <HeaderContainer>
             <HeaderNav>
-               <a href="./">Home</a>
-               <a href="./">Tweets</a>
+               <HeaderNavLink to="/">Home</HeaderNavLink>
+               <HeaderNavLink to="tweets">Tweets</HeaderNavLink>
             </HeaderNav>
-            <p>Filter</p>
-            <Filter onChange={handlerFilter} name="filter">
-               {options.map((option, index) => {
-                  return <option key={index}>{option}</option>;
-               })}
-            </Filter>
+            {location.pathname === "/tweets" && (
+               <>
+                  <p>Filter</p>
+                  <Filter onChange={handlerFilter} name="filter">
+                     {optionsFilter.map((option, index) => {
+                        return <option key={index}>{option}</option>;
+                     })}
+                  </Filter>
+               </>
+            )}
          </HeaderContainer>
       </Header>
    );

@@ -1,17 +1,27 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const TweetSection = styled.section`
-   padding: 30px 0;
+   padding: 20px 0;
 `;
 
 export const TweetContainer = styled.div`
    margin: 0 auto;
-   padding: 0 10px;
+   width: 480px;
 
+   @media screen and (min-width: 780px) {
+      width: 780px;
+   }
+
+   @media screen and (min-width: 1280px) {
+      width: 1280px;
+   }
+`;
+
+export const TweetWrap = styled.div`
    display: flex;
    flex-wrap: wrap;
 
-   width: 480px;
    gap: calc((780px - 380px * 2) / 0.5);
 
    @media screen and (max-width: 779px) {
@@ -19,13 +29,29 @@ export const TweetContainer = styled.div`
    }
 
    @media screen and (min-width: 780px) {
-      width: 780px;
       gap: calc((780px - (380px * 2)));
    }
 
    @media screen and (min-width: 1280px) {
-      width: 1280px;
       gap: calc((1280px - (380px * 3)) / 2);
+   }
+`;
+
+export const ToHome = styled(Link)`
+   display: inline-block;
+   padding: 8px 20px;
+   margin-bottom: 20px;
+
+   border-radius: 10px;
+
+   color: #ebd8ff;
+   background-color: #4b2a99;
+
+   transition: color 250ms linear, background-color 250ms linear;
+
+   &:hover {
+      background-color: rgb(92, 211, 168);
+      color: #373737;
    }
 `;
 

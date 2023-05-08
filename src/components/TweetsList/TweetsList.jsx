@@ -1,57 +1,54 @@
-import { useEffect } from "react";
-import TweetItem from "./TweetItem/TweetItem";
-import { LoadMore, TweetContainer, TweetSection } from "./TweetsList.styled";
 import { useDispatch, useSelector } from "react-redux";
+
+import { SkeletonTweets } from "components/Skeleton/SkeletonTweets";
+import Loader from "components/Loader/Loader";
+import TweetItem from "./TweetItem/TweetItem";
+
+import { incrementPage } from "redux/Slice/TweetsSlice";
 import {
-   selectFilter,
+   selectCurrentPage,
    selectIsLoading,
-   selectPage,
    selectTotalPage,
    selectUsersTweets,
 } from "redux/selector/selectors";
+
 import {
-   getAllPageTweetsThunk,
-   getPageUsersTwitsThunk,
-} from "redux/thunk/contactsThunk";
-import { incrementPage } from "redux/Slice/contactsSlice";
-import Loader from "components/Loader/Loader";
-import { SkeletonTweets } from "components/Skeleton/SkeletonTweets";
+   LoadMore,
+   ToHome,
+   TweetContainer,
+   TweetSection,
+   TweetWrap,
+} from "./TweetsList.styled";
 
 const TweetsList = () => {
+   const dispatch = useDispatch();
    const usersTweets = useSelector(selectUsersTweets);
    const IsLoading = useSelector(selectIsLoading);
    const totalPage = useSelector(selectTotalPage);
-   const filter = useSelector(selectFilter);
-   const page = useSelector(selectPage);
-
-   const dispatch = useDispatch();
-
-   useEffect(() => {
-      dispatch(getAllPageTweetsThunk(filter));
-      dispatch(getPageUsersTwitsThunk({ page, filter }));
-   }, [dispatch, filter, page]);
+   const currentPage = useSelector(selectCurrentPage);
 
    const handelPage = () => {
       dispatch(incrementPage());
    };
 
    return (
-      <>
-         <TweetSection>
-            <TweetContainer>
+      <TweetSection>
+         <TweetContainer>
+            <ToHome to="/">Back</ToHome>
+            <TweetWrap>
                {usersTweets.length !== 0 && <TweetItem />}
                {IsLoading && usersTweets.length === 0 && (
                   <SkeletonTweets quantity={3} />
                )}
-            </TweetContainer>
-            {totalPage !== page && usersTweets.length !== 0 && (
+            </TweetWrap>
+            {totalPage !== currentPage && usersTweets.length !== 0 && (
                <LoadMore onClick={handelPage} disabled={IsLoading}>
                   {!IsLoading && <>Load More</>}
                   {IsLoading && <Loader />}
                </LoadMore>
             )}
-         </TweetSection>
-      </>
+         </TweetContainer>
+      </TweetSection>
    );
 };
 

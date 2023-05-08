@@ -21,15 +21,15 @@ export const getAllPageTweets = async (filter) => {
    }
 };
 
-export const getPageUsersTwits = async (page, filter) => {
+export const getPageUsersTwits = async (currentPage, filter) => {
    let url = ``;
 
    if (filter === "Follow") {
-      url = `/users?page=${page}&limit=3&follow=false`;
+      url = `/users?page=${currentPage}&limit=3&follow=false`;
    } else if (filter === "Following") {
-      url = `/users?page=${page}&limit=3&follow=true`;
+      url = `/users?page=${currentPage}&limit=3&follow=true`;
    } else {
-      url = `/users?page=${page}&limit=3`;
+      url = `/users?page=${currentPage}&limit=3`;
    }
 
    try {

@@ -3,7 +3,7 @@ export const twitsInitialState = {
    filter: "All",
    changeFilter: false,
    totalPage: 0,
-   page: 1,
+   currentPage: 1,
    isLoading: false,
    error: "",
 };

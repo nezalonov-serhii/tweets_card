@@ -12,7 +12,7 @@ export const getAllPageTweetsThunk = createAsyncThunk(
 
 export const getPageUsersTwitsThunk = createAsyncThunk(
    "tweets/pageUsersTwits",
-   async ({ page, filter }) => getPageUsersTwits(page, filter)
+   async ({ currentPage, filter }) => getPageUsersTwits(currentPage, filter)
 );
 
 export const updateUsersTweetsThunk = createAsyncThunk(

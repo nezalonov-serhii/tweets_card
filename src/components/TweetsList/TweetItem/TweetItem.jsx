@@ -1,3 +1,14 @@
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
+import Loader from "components/Loader/Loader";
+
+import { updateUsersTweetsThunk } from "redux/thunk/contactsThunk";
+import { selectIsLoading, selectUsersTweets } from "redux/selector/selectors";
+import { addDots } from "service/utilities";
+
+import backgroundCard from "assets/img/background-card.png";
+import Sprite from "assets/img/sprite.svg";
 import {
    Avatar,
    AvatarWrap,
@@ -8,13 +19,6 @@ import {
    TweetLine,
    TweetText,
 } from "./TweetItem.styled";
-
-import Sprite from "assets/img/sprite.svg";
-import backgroundCard from "assets/img/background-card.png";
-import { useDispatch, useSelector } from "react-redux";
-import { updateUsersTweetsThunk } from "redux/thunk/contactsThunk";
-import { selectIsLoading, selectUsersTweets } from "redux/selector/selectors";
-import Loader from "components/Loader/Loader";
 
 const TweetItem = () => {
    const dispatch = useDispatch();
@@ -28,18 +32,28 @@ const TweetItem = () => {
             ...user,
             ...{ follow: !user.follow, followers: user.followers + 1 },
          };
-         dispatch(updateUsersTweetsThunk({ id: user.id, editedUser }));
+         dispatch(updateUsersTweetsThunk({ id: user.id, editedUser }))
+            .unwrap()
+            .then((res) => {
+               toast.success(`You following ${res.name}`);
+            })
+            .catch((error) => {
+               toast.error("Something went wrong, try again later");
+            });
       } else {
          const editedUser = {
             ...user,
             ...{ follow: !user.follow, followers: user.followers - 1 },
          };
-         dispatch(updateUsersTweetsThunk({ id: user.id, editedUser }));
+         dispatch(updateUsersTweetsThunk({ id: user.id, editedUser }))
+            .unwrap()
+            .then((res) => {
+               toast.info(`You are unfollow ${res.name}`);
+            })
+            .catch((error) => {
+               toast.error("Something went wrong, try again later");
+            });
       }
-   };
-
-   const addDots = (followers) => {
-      return followers.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, "$1.");
    };
 
    return usersTweets.map((user) => {
@@ -56,7 +70,7 @@ const TweetItem = () => {
             <TweetText>{user.tweets} tweets</TweetText>
             <FollowersText>{addDots(user.followers)} followers </FollowersText>
             <FollowButton
-               follow={user.follow}
+               isFollow={user.follow}
                onClick={() => handelFollow(user)}
                disabled={IsLoading}
             >

@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const Header = styled.header`
@@ -28,6 +29,12 @@ export const HeaderNav = styled.nav`
    gap: 20px;
 
    margin-right: 50px;
+`;
+
+export const HeaderNavLink = styled(NavLink)`
+   &.active {
+      color: #33ffb5;
+   }
 `;
 
 export const Filter = styled.select`

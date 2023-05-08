@@ -9,7 +9,7 @@ export const SkeletonTweets = ({ quantity }) => {
    const skeletons = [];
 
    for (let i = 0; i < quantity; i++) {
-      skeletons.push(<SkeletonBody></SkeletonBody>);
+      skeletons.push(<SkeletonBody />);
    }
 
    return (

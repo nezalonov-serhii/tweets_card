@@ -24,8 +24,6 @@ export const TweetCard = styled.article`
       #5736a3 54.28%,
       #4b2a99 78.99%
    );
-   background-position: top;
-   background-repeat: no-repeat;
 
    &::before {
       content: "";
@@ -116,7 +114,7 @@ export const FollowButton = styled.button`
    min-height: 50px;
    padding: 14px 0;
 
-   background-color: ${({ follow }) => (follow ? "#5CD3A8" : "#ebd8ff")};
+   background-color: ${({ isFollow }) => (isFollow ? "#5CD3A8" : "#ebd8ff")};
 
    box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
    border: none;
@@ -131,7 +129,7 @@ export const FollowButton = styled.button`
    transition: background-color 200ms linear;
 
    &:hover {
-      background-color: ${({ follow }) => (follow ? "#f39595" : "#33ffb5")};
+      background-color: ${({ isFollow }) => (isFollow ? "#f39595" : "#33ffb5")};
    }
 
    &:disabled {

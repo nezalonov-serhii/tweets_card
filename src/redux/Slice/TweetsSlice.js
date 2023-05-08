@@ -1,4 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+
 import { twitsInitialState } from "redux/initialState/initialState";
 import {
    getAllPageTweetsThunk,
@@ -16,8 +17,8 @@ const handleFulfilled = (state) => {
 };
 
 const handleRejected = (state, { error }) => {
-   state.isLoading = false;
    state.error = error;
+   state.isLoading = false;
    state.changeFilter = false;
 };
 
@@ -27,10 +28,13 @@ const tweetsSlice = createSlice({
 
    reducers: {
       incrementPage(state) {
-         state.page += 1;
+         state.currentPage += 1;
       },
-      resetPage(state) {
-         state.page = 1;
+      resetCurrentPage(state) {
+         state.currentPage = 1;
+      },
+      resetUsersTweets(state) {
+         state.usersTweets = [];
       },
 
       filterTweets(state, actions) {
@@ -89,6 +93,11 @@ const tweetsSlice = createSlice({
    },
 });
 
-export const { incrementPage, filterTweets, changeFilter, resetPage } =
-   tweetsSlice.actions;
+export const {
+   incrementPage,
+   filterTweets,
+   changeFilter,
+   resetUsersTweets,
+   resetCurrentPage,
+} = tweetsSlice.actions;
 export const tweetsReducer = tweetsSlice.reducer;
